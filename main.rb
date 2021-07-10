@@ -6,7 +6,14 @@ module Enumerable
       count+=1
     end
   end
-
+  
+  def my_each_with_index
+    count = 0
+    while count < self.length
+      yield(self[count], count)
+      count+=1
+    end
+  end
 
 end
 
@@ -16,4 +23,5 @@ numbers.my_each { |item| puts item }
 numbers.each { |item| puts item }
 
 puts "my_each_with_index vs. each_with_index"
+numbers.my_each_with_index { |item, index| puts "#{index}: #{item}" }
 numbers.each_with_index { |item, index| puts "#{index}: #{item}" }
