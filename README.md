@@ -1,0 +1,1 @@
+A collection of methods that recreate the iterator methods of the Enumerable module in Ruby.
