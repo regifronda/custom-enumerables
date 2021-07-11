@@ -22,6 +22,13 @@ module Enumerable
     end
     array
   end
+
+  def my_all?(&block)
+    truthy_elements = my_select(&block)
+    return true if truthy_elements.length == self.length
+
+    false
+  end
 end
 
 puts "my_each vs. each"
@@ -33,6 +40,10 @@ numbers.each { |item| puts item }
 # numbers.my_each_with_index { |item, index| puts "#{index}: #{item}" }
 # numbers.each_with_index { |item, index| puts "#{index}: #{item}" }
 
-puts "my_select vs. select"
-numbers.my_select { |item| puts item.even? }
-numbers.select { |item| puts item.even? }
+#puts "my_select vs. select"
+#numbers.my_select { |item| puts item.even? }
+#numbers.select { |item| puts item.even? }
+
+puts "my_all? vs. all?"
+p numbers.my_all? { |number| number < 1 }
+p numbers.all? { |number| number > 1 }
