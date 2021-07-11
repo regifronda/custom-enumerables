@@ -36,6 +36,13 @@ module Enumerable
     end
     false
   end
+
+  def my_none?(&block)
+    my_each do |i|
+      return false if yield i
+    end
+    true
+  end
 end
 
 puts "my_each vs. each"
@@ -43,9 +50,13 @@ numbers = [1, 2, 3, 4, 5]
 numbers.my_each { |item| puts item }
 numbers.each { |item| puts item }
 
-puts "my_any? vs. any?"
-p numbers.my_any? { |number| number > 7 }
-p numbers.any? { |number| number > 7 }
+puts "my_none? vs. none?"
+p numbers.my_none? { |number| number > 1 }
+p numbers.none? { |number| number > 1 }
+
+# puts "my_any? vs. any?"
+# p numbers.my_any? { |number| number > 1 }
+# p numbers.any? { |number| number > 1 }
 
 # puts "my_each_with_index vs. each_with_index"
 # numbers.my_each_with_index { |item, index| puts "#{index}: #{item}" }
