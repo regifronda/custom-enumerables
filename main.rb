@@ -52,13 +52,23 @@ module Enumerable
     array.length
   end
 
-  def my_map(&block)
+  def my_map(proc = nil, &block)
+    proc_to_execute = proc || block
     result = []
     my_each do |element|
-      result << block.call(element)
+      result << proc_to_execute.call(element)
     end
     result
   end
+
+  def my_inject(initial=1)
+    my_each { |x| initial = yield(initial, x) }
+    return initial
+  end
+end
+
+def multiply_els(array)
+  array.my_inject { |product, number| product * number }
 end
 
 puts "my_each vs. each"
@@ -69,6 +79,10 @@ numbers.each { |item| puts item }
 puts "my_map vs. map"
 p numbers.my_map { |number| number + 1 }
 p numbers.map { |number| number + 1 }
+
+#puts "my_inject"
+#second_array = [2, 4, 5]
+#p multiply_els(second_array)
 
 # puts "my_none? vs. none?"
 # p numbers.my_none? { |number| number > 1 }
