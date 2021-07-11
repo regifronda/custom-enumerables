@@ -29,6 +29,13 @@ module Enumerable
 
     false
   end
+
+  def my_any?(&block)
+    my_each do |i|
+      return true if yield i
+    end
+    false
+  end
 end
 
 puts "my_each vs. each"
@@ -36,14 +43,18 @@ numbers = [1, 2, 3, 4, 5]
 numbers.my_each { |item| puts item }
 numbers.each { |item| puts item }
 
+puts "my_any? vs. any?"
+p numbers.my_any? { |number| number > 7 }
+p numbers.any? { |number| number > 7 }
+
 # puts "my_each_with_index vs. each_with_index"
 # numbers.my_each_with_index { |item, index| puts "#{index}: #{item}" }
 # numbers.each_with_index { |item, index| puts "#{index}: #{item}" }
 
-#puts "my_select vs. select"
-#numbers.my_select { |item| puts item.even? }
-#numbers.select { |item| puts item.even? }
+# puts "my_select vs. select"
+# numbers.my_select { |item| puts item.even? }
+# numbers.select { |item| puts item.even? }
 
-puts "my_all? vs. all?"
-p numbers.my_all? { |number| number < 1 }
-p numbers.all? { |number| number > 1 }
+# puts "my_all? vs. all?"
+# p numbers.my_all? { |number| number > 1 }
+# p numbers.all? { |number| number > 1 }
