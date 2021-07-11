@@ -43,6 +43,22 @@ module Enumerable
     end
     true
   end
+
+  def my_count
+    array = Array.new
+    self.my_each do |item|
+      array << item if yield(item)
+    end
+    array.length
+  end
+
+  def my_map(&block)
+    result = []
+    my_each do |element|
+      result << block.call(element)
+    end
+    result
+  end
 end
 
 puts "my_each vs. each"
@@ -50,9 +66,13 @@ numbers = [1, 2, 3, 4, 5]
 numbers.my_each { |item| puts item }
 numbers.each { |item| puts item }
 
-puts "my_none? vs. none?"
-p numbers.my_none? { |number| number > 1 }
-p numbers.none? { |number| number > 1 }
+puts "my_map vs. map"
+p numbers.my_map { |number| number + 1 }
+p numbers.map { |number| number + 1 }
+
+# puts "my_none? vs. none?"
+# p numbers.my_none? { |number| number > 1 }
+# p numbers.none? { |number| number > 1 }
 
 # puts "my_any? vs. any?"
 # p numbers.my_any? { |number| number > 1 }
